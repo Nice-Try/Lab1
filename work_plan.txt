@@ -13,15 +13,15 @@ Time  | Person  | Assignment
 1h00m | Carl    | Implement OR, XOR, NOR in structural verilog
 2h00m | Camille | Implement SLT in structural verilog
 1h00m | Louise  | Implement adder/subtractor, AND, NAND in structural verilog
-1h00m | All     | Write appropriate test benches
+1h00m | All     | Write appropriate test benches for components
 
 During Wednesday meeting:
 Time  | Assignment
 ------|----------------------------------
 0h30m | Report out on homework and adjust plan as needed
 0h30m | Design lookup table/control logic
-0h25m | Begin report writeup
-0h05m | Divide up the rest of the report as homework
+0h25m | Design and implement lookup table and integrated ALU tests
+0h05m | Divide up the report as homework
 
 Before Friday class:
 Time  | Assignment
