@@ -15,16 +15,36 @@ module testFullAndNand();
 
   initial begin
 
-  $dumpfile("and.vcd");
-  $dumpvars();
+    $dumpfile("and.vcd");
+    $dumpvars();
 
-  $display("hello!");
-  a=4294967294;b=3234987534;andflag=0; #50
-  $display("a = %b, b = %b, andflag = %b", a, b, andflag);
-  $display("%b", a~&b);
-  $display("%b", out);
+    $display("Beginning tests");
+    $display("Running NAND tests");
+    andflag=0;
+    a=4294967294;b=3234987534; #90
+    if ((a~&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    a=100029384;b=234987534; #90
+    if ((a~&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
 
-  $finish();
+    $display("Running AND tests");
+    andflag=1;
+    a=4294967294;b=3234987534; #90
+    if ((a&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    a=100029384;b=234987534; #90
+    if ((a&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+
+
+    $display("Tests completed");
+
+    $finish();
 
   end
 endmodule
