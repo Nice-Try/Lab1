@@ -6,7 +6,7 @@
 
 ### Individual modules
 
-#### Adder
+#### Add and subtract
 
 The adder was made bitslice, then as a full 32-bit adder. The bitslice adder is similar to our adder from [Lab 0](https://github.com/nielsenlouise/Lab0), except with an additional XOR gate to implement subtraction. Below is a diagram of the bitslice adder, which can be found in [adder.v](adder.v) as the `bitsliceAdder` module. Red labels correspond to wire names and blue labels correspond to gate names (as defined in the Verilog).
 
@@ -23,6 +23,16 @@ For the full 32 bit adder, we combined the bitslice adders in a similar way to i
 In later diagrams, we will represent the full adder as a black box like this:
 
 ![Full adder black box](images/full_adder_box.jpg)
+
+#### AND and NAND
+
+The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) takes three things as inputs: A and B, of course, and a flag for whether the desired operation is AND. The diagram is below:
+
+![32 bit and and nand diagram](images/and.jpg)
+
+In future diagrams, we'll probably represent it like this:
+
+![And and nand black box](images/and_box.jpg)
 
 #### Other components go here
 
