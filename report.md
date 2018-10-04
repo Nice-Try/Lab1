@@ -30,6 +30,8 @@ The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) take
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
+In our first iteration of the AND/NAND module, we used an XOR gate instead of an OR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you OR the output of NANDing the inputs with `command[0]`.
+
 In future diagrams, we'll probably represent it like this:
 
 <img src="images/and_box.jpg" alt="32 bit and and nand black box" height="200"/>
