@@ -14,7 +14,7 @@ module testSLT();
   initial begin
   dutpassed = 1;
 
-  //test cases in the form a_sign b_sign overflow
+  //test cases in the form a_sign | b_sign | overflow   result
 
   a=32'd8; b=32'd3; #1000
   if (lessthan !== 0) begin
@@ -89,14 +89,5 @@ module testSLT();
   if(dutpassed==1)
     $display("All 8 Tests Passed.");
 
-  /*Test Cases: a b overflow
-  ++T
-  ++F
-  --T
-  --F
-  +-T
-  +-F
-  -+T
-  -+F */
   end
   endmodule
