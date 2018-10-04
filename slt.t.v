@@ -9,12 +9,27 @@ module testSLT();
   reg subtract = 1;
 
   full32BitAdder adder (sum, carryout, overflow, a, b, subtract);
-  SLT setlessthan(lessthan, sum);
+  SLT setlessthan(lessthan, sum, overflow);
 
   initial begin
   dutpassed = 1;
 
   //test cases in the form a_sign | b_sign | result
+  a=-32'd2147483648; b=32'd5; #2000
+  if (lessthan !== 1) begin
+    dutpassed = 0;
+    $display("Actual:   %b", sum);
+    $display("Failed Test Case 01: -+ Overflow True");
+    $display("%b %b 1 %b", a,b,lessthan);
+    end
+
+  a=32'd2147483642; b=-32'd5; #2000
+  if (lessthan !== 0) begin
+      dutpassed = 0;
+      $display("Actual:   %b", sum);
+      $display("Failed Test Case 02: +- Overflow False");
+      $display("%b %b 0 %b", a,b,lessthan);
+      end
 
   a=32'd8; b=32'd3; #2000
   if (lessthan !== 0) begin
@@ -88,7 +103,7 @@ module testSLT();
   end
 
   if(dutpassed==1)
-    $display("All 8 Tests Passed.");
+    $display("All 10 Tests Passed.");
 
   end
 
