@@ -10,8 +10,7 @@ TEST := or nor xor
 
 # Pattern rule for compiling vvp (Icarus assembly) from a testbench
 %.vvp: %.t.v $(CIRCUITS)
-	echo $@ $<
-	#$(IVERILOG) -o $@ $<
+	$(IVERILOG) -o $@ $<
 
 
 # Shortcut (phony) targets for convenience
