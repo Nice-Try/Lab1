@@ -4,8 +4,7 @@
 module SLT
 (
   output less,
-  input signed [31:0] sum,
-  input overflow
+  input signed [31:0] sum
   );
 
   wire overflow, carryout;
