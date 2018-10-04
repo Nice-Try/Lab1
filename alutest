@@ -1,0 +1,203 @@
+#! /usr/local/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1-107-gab6ae79)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x27dfce0 .scope module, "testALU" "testALU" 2 3;
+ .timescale 0 0;
+v0x27ff080_0 .var/s "a", 31 0;
+v0x27ff160_0 .var/s "b", 31 0;
+o0x7ff9c96d5018 .functor BUFZ 1, C4<z>; HiZ drive
+v0x27ff230_0 .net "carryout", 0 0, o0x7ff9c96d5018;  0 drivers
+v0x27ff330_0 .var "control", 2 0;
+v0x27ff400_0 .var "dutpassed", 0 0;
+o0x7ff9c96d50d8 .functor BUFZ 1, C4<z>; HiZ drive
+v0x27ff4f0_0 .net "overflow", 0 0, o0x7ff9c96d50d8;  0 drivers
+o0x7ff9c96d5108 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0x27ff590_0 .net/s "result", 31 0, o0x7ff9c96d5108;  0 drivers
+o0x7ff9c96d5138 .functor BUFZ 1, C4<z>; HiZ drive
+v0x27ff660_0 .net "zero", 0 0, o0x7ff9c96d5138;  0 drivers
+S_0x27dfe60 .scope module, "dut" "ALU" 2 11, 3 1 0, S_0x27dfce0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 32 "result"
+    .port_info 1 /OUTPUT 1 "carryout"
+    .port_info 2 /OUTPUT 1 "zero"
+    .port_info 3 /OUTPUT 1 "overflow"
+    .port_info 4 /INPUT 32 "operandA"
+    .port_info 5 /INPUT 32 "operandB"
+    .port_info 6 /INPUT 3 "command"
+v0x27bb330_0 .net "carryout", 0 0, o0x7ff9c96d5018;  alias, 0 drivers
+v0x27fea00_0 .net "command", 2 0, v0x27ff330_0;  1 drivers
+v0x27feae0_0 .net "operandA", 31 0, v0x27ff080_0;  1 drivers
+v0x27febd0_0 .net "operandB", 31 0, v0x27ff160_0;  1 drivers
+v0x27fecb0_0 .net "overflow", 0 0, o0x7ff9c96d50d8;  alias, 0 drivers
+v0x27fedc0_0 .net "result", 31 0, o0x7ff9c96d5108;  alias, 0 drivers
+v0x27feea0_0 .net "zero", 0 0, o0x7ff9c96d5138;  alias, 0 drivers
+    .scope S_0x27dfce0;
+T_0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %add;
+    %cmp/ne;
+    %jmp/0xz  T_0.0, 6;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 19 "$display", "Failed adding:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %add;
+    %vpi_call 2 20 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,s32> {1 0 0};
+T_0.0 ;
+    %pushi/vec4 1, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %sub;
+    %cmp/ne;
+    %jmp/0xz  T_0.2, 6;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 26 "$display", "Failed Subtracting:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %sub;
+    %vpi_call 2 27 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,s32> {1 0 0};
+T_0.2 ;
+    %pushi/vec4 2, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %inv;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %xor;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.4, 4;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 33 "$display", "Failed XOR:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %xor;
+    %vpi_call 2 34 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,s32> {1 0 0};
+T_0.4 ;
+    %pushi/vec4 3, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %cmp/s;
+    %flag_get/vec4 5;
+    %pad/u 32;
+    %cmp/ne;
+    %jmp/0xz  T_0.6, 6;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 40 "$display", "Failed SLT:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %cmp/s;
+    %flag_get/vec4 5;
+    %vpi_call 2 41 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,u1> {1 0 0};
+T_0.6 ;
+    %pushi/vec4 4, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %inv;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %and;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.8, 4;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 47 "$display", "Failed SLT:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %and;
+    %vpi_call 2 48 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,s32> {1 0 0};
+T_0.8 ;
+    %pushi/vec4 5, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %and;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.10, 4;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 54 "$display", "Failed SLT:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %nor/r;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %and;
+    %vpi_call 2 55 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,u32> {1 0 0};
+T_0.10 ;
+    %pushi/vec4 6, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %inv;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %or;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.12, 4;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 61 "$display", "Failed SLT:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %load/vec4 v0x27ff160_0;
+    %or;
+    %vpi_call 2 62 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,s32> {1 0 0};
+T_0.12 ;
+    %pushi/vec4 7, 0, 3;
+    %store/vec4 v0x27ff330_0, 0, 3;
+    %load/vec4 v0x27ff590_0;
+    %load/vec4 v0x27ff080_0;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %or;
+    %cmpi/ne 0, 0, 32;
+    %jmp/0xz  T_0.14, 4;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x27ff400_0, 0, 1;
+    %vpi_call 2 68 "$display", "Failed SLT:" {0 0 0};
+    %load/vec4 v0x27ff080_0;
+    %nor/r;
+    %pad/u 32;
+    %load/vec4 v0x27ff160_0;
+    %or;
+    %vpi_call 2 69 "$display", "a = %b  b = %b   result = %b  expected %b", v0x27ff080_0, v0x27ff160_0, v0x27ff590_0, S<0,vec4,u32> {1 0 0};
+T_0.14 ;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "alu.t.v";
+    "./alu.v";
