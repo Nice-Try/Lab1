@@ -9,7 +9,7 @@ module testSLT();
   reg subtract = 1;
 
   full32BitAdder adder (sum, carryout, overflow, a, b, subtract);
-  SLT setlessthan(lessthan, sum, overflow);
+  SLT setlessthan(lessthan, sum);
 
   initial begin
   dutpassed = 1;
