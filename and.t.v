@@ -1,5 +1,4 @@
 `include "and.v"
-// `timescale 1 ns / 1 ps
 // I don't know what timescale means...maybe that should be implemented?
 
 module testFullAndNand();
