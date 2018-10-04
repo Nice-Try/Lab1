@@ -45,28 +45,28 @@ initial begin
   control=3'b100;
   if(result !== a&b) begin
     dutpassed = 0;
-    $display("Failed SLT:");
+    $display("Failed AND:");
     $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
   end
 
   control=3'b101;
   if(result == a&b) begin
     dutpassed = 0;
-    $display("Failed SLT:");
+    $display("Failed NAND:");
     $display("a = %b  b = %b   result = %b  expected %b", a,b,result,!a&b);
   end
 
   control=3'b110;
   if(result !== a|b) begin
     dutpassed = 0;
-    $display("Failed SLT:");
+    $display("Failed NOR:");
     $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
   end
 
   control=3'b111;
   if(result == a|b) begin
     dutpassed = 0;
-    $display("Failed SLT:");
+    $display("Failed OR:");
     $display("a = %b  b = %b   result = %b  expected %b", a,b,result,!a|b);
   end
 
