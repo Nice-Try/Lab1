@@ -48,19 +48,23 @@ module MUX
   wire[31:0] ADD, SUB, XOR, SLT, AND, NAND, NOR, OR; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
   wire andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7;
-  wire [7:0] carryout, overflowout;
+  wire [7:0] carryouts, overflowout;
 
-  full32BitAdder adder (ADD, carryout[0], overflowout[0], a, b, othercontrolsignal);
-  full32BitAdder subber (SUB, carryout[1], overflowout[1], a, b, othercontrolsignal);
-  full32BitXor xormod (XOR, carryout[2], overflowout[2], a, b);
-  full32BitSLT slt (SLT, carryout[3], overflowout[3], SUB, overflow[0]);
-  full32BitAnd andmod (AND, carryout[4], overflowout[4], a, b, othercontrolsignal);
-  full32BitAnd nandmod (NAND, carryout[5], overflowout[5], a, b, othercontrolsignal);
-  full32BitOr normod (NOR, carryout[6], overflowout[6], a, b, othercontrolsignal);
-  full32BitOr ormod (OR, carryout[7], overflowout[7], a, b, othercontrolsignal);
+  full32BitAdder adder (ADD, carryouts[0], overflowout[0], a, b, othercontrolsignal);
+  full32BitAdder subber (SUB, carryouts[1], overflowout[1], a, b, othercontrolsignal);
+  full32BitXor xormod (XOR, carryouts[2], overflowout[2], a, b);
+  full32BitSLT slt (SLT, carryouts[3], overflowout[3], SUB, overflowout[0]);
+  full32BitAnd andmod (AND, carryouts[4], overflowout[4], a, b, othercontrolsignal);
+  full32BitAnd nandmod (NAND, carryouts[5], overflowout[5], a, b, othercontrolsignal);
+  full32BitOr normod (NOR, carryouts[6], overflowout[6], a, b, othercontrolsignal);
+  full32BitOr ormod (OR, carryouts[7], overflowout[7], a, b, othercontrolsignal);
 
   assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
+
+  /* this is not working yet
+    needs to mux the results of each thing to make
+    final result
 
     for(i=0; i<32; i=1+1) begin
     not not1(nS0, S0);
@@ -71,7 +75,7 @@ module MUX
 
     //or orgate(result[i], andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7);
     end
-
+    */
 endmodule
 
 module ALU

@@ -52,10 +52,10 @@ module testALU();
   end
 
   control=3'b101; #2000//NAND
-  if(result == a&b) begin
+  if(result !== a&b) begin //need to make NAND
     dutpassed = 0;
     $display("Failed NAND:");
-    $display("a = %b  b = %b   result = %b  expected %b", a,b,result,!a&b);
+    $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
   end
 
   control=3'b110; #2000//NOR
@@ -66,10 +66,10 @@ module testALU();
   end
 
   control=3'b111; #2000//OR
-  if(result == a|b) begin
+  if(result !== a|b) begin // need to make NOR
     dutpassed = 0;
     $display("Failed OR:");
-    $display("a = %b  b = %b   result = %b  expected %b", a,b,result,!a|b);
+    $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
   end
 
 end
