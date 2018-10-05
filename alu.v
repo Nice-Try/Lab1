@@ -13,6 +13,9 @@
 `define NOR  3'd6
 `define OR   3'd7
 
+`define ANDGATE and #1000000 // 2 inputs
+`define ORGATE or #1000000 // 2 inputs
+
 module ALUcontrolLUT
 (
 output reg[2:0] 	muxindex,
@@ -47,7 +50,7 @@ module MUX
   );
   wire[31:0] ADD, SUB, XOR, SLT, AND, NAND, NOR, OR; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
-  wire andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7;
+  wire [7:0] resultand;
   wire [7:0] carryouts, overflowout;
 
   full32BitAdder adder (ADD, carryouts[0], overflowout[0], a, b, othercontrolsignal);
@@ -62,20 +65,28 @@ module MUX
   assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
 
-  /* this is not working yet
-    needs to mux the results of each thing to make
-    final result
+  not not1(nS0, S0);
+  not not2(nS1, S1);
+  not not3(nS2, S2);
+  genvar i;
+  generate
+    for(i=0; i<32; i=i+1)
+    begin:genblock
+      // mux the results
+      `ANDGATE(resultand[0], nS2, nS0, nS1, ADD[i]);
+      `ANDGATE(resultand[1], nS2, S0, nS1, SUB[i]);
+      `ANDGATE(resultand[2], nS2, nS0, S1, XOR[i]);
+      `ANDGATE(resultand[3], nS2, S0, S1, SLT[i]);
+      `ANDGATE(resultand[4], S2, nS0, nS1, AND[i]);
+      `ANDGATE(resultand[5], S2, S0, nS1, NAND[i]);
+      `ANDGATE(resultand[6], S2, nS0, S1, NOR[i]);
+      `ANDGATE(resultand[7], S2, S0, S1, OR[i]);
 
-    for(i=0; i<32; i=1+1) begin
-    not not1(nS0, S0);
-    not not2(nS1, S1);
-    not not3(nS2, S2);
-    and andgate0(andOut0, nS2, nS1, nS0);
-    and andgate1(andOut1, nS2, nS1, S0);
-
-    //or orgate(result[i], andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7);
+      // or all of the results
+      `ORGATE(result[i], resultand[0], resultand[1], resultand[2], resultand[3], resultand[4], resultand[5], resultand[6], resultand[7]);      
     end
-    */
+  endgenerate
+    
 endmodule
 
 module ALU
