@@ -8,9 +8,9 @@ module testFullAndNand();
 
   // Outputs
   wire [31:0] out;
-
+  wire carryout, overflow;
   // Instantiate device under test
-  full32BitAnd andNand (out, a, b, andflag);
+  full32BitAnd andNand (out,carryout, overflow, a, b, andflag);
 
   initial begin
 
