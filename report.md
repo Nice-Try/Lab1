@@ -30,7 +30,13 @@ Our XOR module is just 32 XOR gates next to each other. It looks like this:
 
 <img src="images/xor.jpg" alt="XOR diagram" height="250"/>
 
-#### Set less than (SLT)
+#### Set Less Than
+
+The SLT takes its inputs from the outputs of the adder/subtractor. This works because the adder/subtractor module will be calculating subtraction because the `othercontrolsignal` will be 1 when the ALU command is for the SLT.
+
+Specfically, it looks at the sign bit `sum[31]` and the `overflow` outputs to determine if A < B. If there is no overflow, the LSB of the output `lessthan` will be the same as whatever the sign bit was. If there was overflow, the output should be the opposite of whatever the sign bit was, since with overflow the calculation result will actually have the wrong sign. To get this behavior, `sum[31]` and `overflow` are xor'd together. The rest of the output `lessthan` will be 0's regardless of the result.
+
+ <img src="images/slt.jpg" width="550px" alt="SLT Diagram"/>
 
 #### AND and NAND
 
@@ -144,6 +150,18 @@ We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn
 |---|---|---|---|
 | 11111111111111111111111111111110 | 11000000110100011111111000001110 | 00000000000000000000000000000001 | 11111111111111111111111111111110 |
 | 00000101111101100101001111001000 | 00001110000000011010000000001110 | 11110000000010000000110000110001 | 00001111111101111111001111001110 |
+
+### ALU Tests
+
+| Case | Cout | Over | A | B |
+|---|---|---|---|---|
+| ++ | 0 | 0 | 30000 | 30000 |
+| +- | 1 | 0 | 2147483647 | -2147483647 |
+| -- | 1 | 0 | -650 | -5001 |
+| -+ | 1 | 0 | -36 | 1073741824 |
+| -- | 1 | 1 | -1500000000 | -1500000000 |
+| ++ | 0 | 1 | 2147483647 | 1 |
+
 
 ## Timing analysis
 
