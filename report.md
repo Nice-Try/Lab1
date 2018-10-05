@@ -12,6 +12,10 @@ The lookup table takes in a command and outputs the mux index and another contro
 
 ### Individual modules
 
+#### Mux
+
+The ALU uses a mux to choose between the results of the other individual modules given the 3 bit mux input. It is actually comprised of 32 individual muxes, one for each of the result bits, and contains 8 and gates that take 4 inputs, the given bit from each of the 8 individual modules, and the 3 selection bits. Some of the selection bits are inverted so that the mux acts like a look-up table for the given individual module. The result from these and gates are then or'd together and output as the result.
+
 #### Add and subtract
 
 The adder was made bitslice, then as a full 32-bit adder. The bitslice adder is similar to our adder from [Lab 0](https://github.com/nielsenlouise/Lab0), except with an additional XOR gate to implement subtraction. Below is a diagram of the bitslice adder, which can be found in [adder.v](adder.v) as the `bitsliceAdder` module. Red labels correspond to wire names and blue labels correspond to gate names (as defined in the Verilog).
@@ -158,6 +162,7 @@ We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn
 | 00000101111101100101001111001000 | 00001110000000011010000000001110 | 11110000000010000000110000110001 | 00001111111101111111001111001110 |
 
 ### ALU Tests
+We used some select test cases from our adder test cases since they would capture the special cases that adder has as well as the special cases for the SLT module. Our cases capture a few different combinations of positive and negative numbers, some with carryout some without, and a case with overflow. The second case in the table should also overflow for the SLT operation, testing that edge case. The other simple modules that are just gates don't really have edge cases that we needed to check. For each test case, the test bench ran the A and B inputs through all 8 operations and checked for the expected results. More in depth reasoning and explanations for the special cases can be found in the sections for the Adder/Subtracter module and the SLT module.  
 
 | Case | Cout | Over | A | B |
 |---|---|---|---|---|
