@@ -3,20 +3,23 @@
 `include "xor.v"
 
 module testXor ();
-    reg [31:0] inA;
-    reg [31:0] inB;
+    reg [31:0] a;
+    reg [31:0] b;
     wire [31:0] out;
     wire carryout, overflow;
 
-    full32BitXor xormod (out, carryout, overflow, inA, inB); // Swap after testing
+    full32BitXor xormod (out, carryout, overflow, a, b); // Swap after testing
 
     initial begin
-    $display("A B | Output");
-    inA=0;inB=0; #1000
-    $display("%b %b |  %b | All false", inA, inB, out);
-    inA=1;inB=1; #1000
-    $display("%b %b |  %b | All false", inA, inB, out);
-    $finish();
+        $display("Running XOR tests");
+        a=4294967294;b=3234987534; #10000
+        if ((a^b) !== out) begin
+          $display("Test failed with a %b, b %b", a, b);
+        end
+        a=100029384;b=234987534; #10000
+        if ((a^b) !== out) begin
+          $display("Test failed with a %b, b %b", a, b);
+        end
     end
 
 endmodule
