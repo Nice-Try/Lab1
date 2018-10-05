@@ -13,8 +13,8 @@
 `define NORMODULE  3'd6
 `define ORMODULE   3'd7
 
-`define ANDGATE and #10000000 // 2 inputs
-`define ORGATE or #10000000 // 2 inputs
+`define ANDGATE and #20 // 2 inputs
+`define ORGATE or #20 // 2 inputs
 
 module ALUcontrolLUT
 (
