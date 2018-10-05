@@ -80,6 +80,14 @@ Subtraction:
 
 ### XOR tests
 
+It was difficult to come up with test cases for the basic gates. For all of them (XOR, AND/NAND, and OR/NOR), we used the same two pairs of inputs. We didn't discover any problems in our implementation from the test bench.
+
+| A | B | XOR |
+|---|---|---|
+| 11111111111111111111111111111110 | 11000000110100011111111000001110 | 00111111001011100000000111110000 |
+| 00000101111101100101001111001000 | 00001110000000011010000000001110 | 00001011111101111111001111000110 |
+
+
 ### Set less than tests
 
 For Set Less Than, there are two options for A and B, positive or negative, and the outcome can be true or false for the different combinations, so we have a test case for each combination. Additionally, there are the case where A=B (one for positive and one for negative). Finally, for the cases where the subtraction had an overflow, the SLT needs to return the opposite of the sign bit of the sum, so we have test cases where A was positive and B was negative and there was overflow, and A was negative and B was positive and there was overflow. These different cases capture all the possible behaviors. In the table they are expressed in decimal, but they are 32-bit binary inputs when given to the SLT module.
@@ -113,7 +121,7 @@ Originally, overflow test cases were missing and the SLT seemed to be working wh
 
 ### AND and NAND tests
 
-It was difficult to come up with test cases for the basic gates. For AND and NAND, we tested just two pairs of numbers, and used those pairs for both tests.
+We used the pairs of inputs also used for the XOR module, but this time for both the AND and NAND tests.
 
 In our first iteration of the AND/NAND module, we used an XOR gate instead of an XNOR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you XNOR the output of NANDing the inputs with `command[0]`.
 
