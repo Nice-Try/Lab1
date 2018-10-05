@@ -173,7 +173,7 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A-, B+, no carryout, overflow
+    // A-, B+, carryout, overflow
     a=-2100000000;b=1073741824; #10000
     if ((a-b) !== sum) begin
       $display("Subtraction test failed");
