@@ -54,6 +54,35 @@ We didn't calculate the results of our tests ourselves; instead, we checked the 
 
 ### Set less than tests
 
+For Set Less Than, there are two options for A and B, positive or negative, and the outcome can be true or false for the different combinations, so we have a test case for each combination. Additionally, there are the case where A=B (one for positive and one for negative). Finally, for the cases where the subtraction had an overflow, the SLT needs to return the opposite of the sign bit of the sum, so we have test cases where A was positive and B was negative and there was overflow, and A was negative and B was positive and there was overflow. These different cases capture all the possible behaviors. In the table they are expressed in decimal, but they are 32-bit binary inputs when given to the SLT module.
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| ++ | 2 | 4 | 1 | 1 |
+| ++ | 8 | 1 | 0 | 0 |
+| -- | -4 | -2 | 1 | 1|
+| -- | -1 | -5 | 0 | 0 |
+| +- | 2 | -5 | 0 | 0|
+| -+ | -4 | 100 | 1 | 1 |
+
+Same Number
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| ++ | 2 | 2 | 0 | 0 |
+| -- | -4 | -4 | 0 | 0 |
+
+Cases with Overflow
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| +- | 2147483646 | -2 | 0 | 0 |
+| -+ | -2147483648 | 3 | 1 | 1 |
+
+#### Problems Detected by SLT Test Bench
+
+Originally, overflow test cases were missing and the SLT seemed to be working when it wasn't. Once we added the overflow test cases, we found that our original model of just taking the sign bit of the sum from subtracting A-B was incorrect. Our original overflow test cases were not actually going to produce overflows for the 32-bit version since we was originally using the overflow numbers for a 4-bit SLT or 4-bit adder subtracter. 
+
 ### AND and NAND tests
 
 It was difficult to come up with test cases for the basic gates. For AND and NAND, we tested just two pairs of numbers, and used those pairs for both tests.
