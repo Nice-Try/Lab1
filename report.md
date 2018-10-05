@@ -30,8 +30,6 @@ The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) take
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
-In our first iteration of the AND/NAND module, we used an XOR gate instead of an XNOR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you XNOR the output of NANDing the inputs with `command[0]`.
-
 Additionally, we were unsure how best to approximate the timing of XNOR. We decided to make it cost 3 units of time - cheaper than implementing XNOR with other gates, but more expensive than just accounting for the two inputs.
 
 In future diagrams, we'll probably represent it like this:
@@ -67,6 +65,19 @@ Addition:
 | ++01 | 01111111111111111111111111111111 | 00000000000000000000000000000001 | 10000000000000000000000000000000 | 0 | 1 |
 | --11 | 10100110100101111101000100000000 | 10001000110010100110110000000000 | 00101111011000100011110100000000 | 1 | 1 |
 
+Subtraction:
+
+| Case | A | B | Difference | Carryout | Overflow |
+|---|---|---|---|---|---|
+| ++00 | 00000000000000000000000000110111 | 00000000000000000000000000111100 | 11111111111111111111111111111011 | 0 | 0 |
+| ++10 | 01111111111111111111111111111111 | 00000000000000000000000000111100 | 01111111111111111111111111000011 | 1 | 0 |
+| +-00 | 00000000010110111000110110000000 | 11111111111111111111001001010100 | 00000000010110111001101100101100 | 0 | 0 |
+| -+10 | 11111111111111111001101001110000 | 00000000000001101110000000110100 | 11111111111110001011101000111100 | 1 | 0 |
+| --00 | 10000000000000000000000000000001 | 11111111111111111111111111100110 | 10000000000000000000000000011011 | 0 | 0 |
+| --10 | 11111111111111111111111111011100 | 11111111111111111111111111011100 | 00000000000000000000000000000000 | 1 | 0 |
+| +-01 | 01011001011010000010111100000000 | 10100110100101111101000100000000 | 10110010110100000101111000000000 | 0 | 1 |
+| -+11 | 10000010110101001000101100000000 | 01000000000000000000000000000000 | 01000010110101001000101100000000 | 1 | 1 |
+
 ### XOR tests
 
 ### Set less than tests
@@ -98,11 +109,13 @@ Cases with Overflow
 
 #### Problems Detected by SLT Test Bench
 
-Originally, overflow test cases were missing and the SLT seemed to be working when it wasn't. Once we added the overflow test cases, we found that our original model of just taking the sign bit of the sum from subtracting A-B was incorrect. Our original overflow test cases were not actually going to produce overflows for the 32-bit version since we was originally using the overflow numbers for a 4-bit SLT or 4-bit adder subtracter. 
+Originally, overflow test cases were missing and the SLT seemed to be working when it wasn't. Once we added the overflow test cases, we found that our original model of just taking the sign bit of the sum from subtracting A-B was incorrect. Our original overflow test cases were not actually going to produce overflows for the 32-bit version since we was originally using the overflow numbers for a 4-bit SLT or 4-bit adder subtracter.
 
 ### AND and NAND tests
 
 It was difficult to come up with test cases for the basic gates. For AND and NAND, we tested just two pairs of numbers, and used those pairs for both tests.
+
+In our first iteration of the AND/NAND module, we used an XOR gate instead of an XNOR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you XNOR the output of NANDing the inputs with `command[0]`.
 
 | A | B | AND | NAND |
 |---|---|---|---|

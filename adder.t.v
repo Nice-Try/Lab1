@@ -32,7 +32,7 @@ module testFullAdder();
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
@@ -41,7 +41,7 @@ module testFullAdder();
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
@@ -50,7 +50,7 @@ module testFullAdder();
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
@@ -59,7 +59,7 @@ module testFullAdder();
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
@@ -68,42 +68,35 @@ module testFullAdder();
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",sum);
-    $display("%b",a+b);
-    $display("%b",carryout);
-    $display("%b",overflow);
-    // A-, B-, no overflow
+    // A-, B-, carryout, no overflow
     a=-650;b=-5001; #10000
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
 
-
-    // A+, B+, overflow
+    // A+, B+, no carryout, overflow
     a=2147483647;b=1; #10000
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
-    // A-, B-, overflow
+    // A-, B-, carryout, overflow
     a=-1500000000;b=-2000000000; #10000
     if ((a+b) !== sum) begin
       $display("Addition test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
+      $display("- b:        %b", b);
       $display("- expected: %b", a+b);
       $display("- actual:   %b", sum);
     end
@@ -116,80 +109,85 @@ module testFullAdder();
      **   SUB TESTS  **
      ******************/
     $display("Running Adder Tests - Subtraction");
-    // A+, B+, no overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A+, B+, no carryout, no overflow
+    a=55;b=60; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A+, B-, no overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A+, B+, carryout, no overflow
+    a=2147483647;b=60; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A-, B+, no overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A+, B-, no carryout, no overflow
+    a=6000000;b=-3500; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A-, B-, no overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A-, B+, no carryout, no overflow
+    a=-26000;b=450612; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
+      $display("- actual:   %b", sum);
+    end
+    // A-, B-, no carryout, no overflow
+    a=-2147483647;b=-26; #10000
+    if ((a-b) !== sum) begin
+      $display("Subtraction test failed");
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
+      $display("- actual:   %b", sum);
+    end
+    // A-, B-, carryout, no overflow
+    a=-36;b=-36; #10000
+    if ((a-b) !== sum) begin
+      $display("Subtraction test failed");
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
 
-
-    // A+, B+, overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A+, B-, no carryout, overflow
+    a=1500000000;b=-1500000000; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A+, B-, overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
+    // A-, B+, no carryout, overflow
+    a=-2100000000;b=1073741824; #10000
+    if ((a-b) !== sum) begin
       $display("Subtraction test failed");
       $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    // A-, B+, overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
-      $display("Subtraction test failed");
-      $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
-      $display("- actual:   %b", sum);
-    end
-    // A-, B-, overflow
-    // a=;b=; #1000
-    if ((a+b) !== sum) begin
-      $display("Subtraction test failed");
-      $display("- a:        %b", a);
-      $display("- a:        %b", b);
-      $display("- expected: %b", a+b);
-      $display("- actual:   %b", sum);
-    end
+    $display("%b",a);
+    $display("%b",b);
+    $display("%b",sum);
+    $display("%b",a-b);
+    $display("%b",carryout);
+    $display("%b",overflow);
 
   end
 endmodule
