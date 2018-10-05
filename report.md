@@ -4,6 +4,12 @@
 
 ### Overall architecture plan
 
+We decided to build several 32-bit modules and put them together all at once as a 32-bit ALU. All of our modules are described below. The basic architecture of the entire ALU looks like this:
+
+<img src="images/alu.jpg" alt="ALU diagram" height="400"/>
+
+The lookup table takes in a command and outputs the mux index and another control signal (called `othercontrolsignal`). These both go into the mux module, which then instantiates all of the submodules, creates a mux, and then selects which outputs to use.
+
 ### Individual modules
 
 #### Add and subtract
@@ -167,6 +173,6 @@ We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn
 
 ## Work plan reflection
 
-The only activity that took less time than we anticipated was coming up with general test cases which we did on our Sunday meeting. Instead of spending an hour we only spent 15 minutes since we didn't go into detail for each individual case. Everything else took much longer. Even though we aimed to have our individual module test benches done by Wednesday, none of them were done by our Wednesday meeting. During our meeting we had planned to implement the ALU and figure out the control logic LUT, but we did not accomplish those during the meeting because we spent our time debugging our modules and working on their test benches. We met for 4 hours on Wednesday, which was much longer than our planned 2 hours. Finally on Thursday, we made all of our test benches, did the ALU implementation, and wrote the rest of the report. Overall it took us ~4 hours each individually working on the lab, plus some time spent together (~1hr) for around 12hrs total on Thursday night. 
+The only activity that took less time than we anticipated was coming up with general test cases which we did on our Sunday meeting. Instead of spending an hour we only spent 15 minutes since we didn't go into detail for each individual case. Everything else took much longer. Even though we aimed to have our individual module test benches done by Wednesday, none of them were done by our Wednesday meeting. During our meeting we had planned to implement the ALU and figure out the control logic LUT, but we did not accomplish those during the meeting because we spent our time debugging our modules and working on their test benches. We met for 4 hours on Wednesday, which was much longer than our planned 2 hours. Finally on Thursday, we made all of our test benches, did the ALU implementation, and wrote the rest of the report. Overall it took us ~4 hours each individually working on the lab, plus some time spent together (~1hr) for around 12hrs total on Thursday night.
 
-Overall implementation and writing test benches took much longer than expected, so in the future we would want to work on these sooner and be able to go to more NINJA and Office hours earlier in the week to get those problems sorted in a timely manner. Since we were all confused about the ALU, we somewhat pushed it off as a future problem to worry about since we planned to figure it out on Wednesday, but in the future we should work on the most challenging aspect of the lab first. This would allow us to have more time to think about the problem and reach out to the teaching team for more guidance. 
+Overall implementation and writing test benches took much longer than expected, so in the future we would want to work on these sooner and be able to go to more NINJA and Office hours earlier in the week to get those problems sorted in a timely manner. Since we were all confused about the ALU, we somewhat pushed it off as a future problem to worry about since we planned to figure it out on Wednesday, but in the future we should work on the most challenging aspect of the lab first. This would allow us to have more time to think about the problem and reach out to the teaching team for more guidance.
