@@ -30,7 +30,9 @@ The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) take
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
-In our first iteration of the AND/NAND module, we used an XOR gate instead of an OR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you OR the output of NANDing the inputs with `command[0]`.
+In our first iteration of the AND/NAND module, we used an XOR gate instead of an XNOR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you XNOR the output of NANDing the inputs with `command[0]`.
+
+Additionally, we were unsure how best to approximate the timing of XNOR. We decided to make it cost 3 units of time - cheaper than implementing XNOR with other gates, but more expensive than just accounting for the two inputs.
 
 In future diagrams, we'll probably represent it like this:
 
@@ -39,6 +41,75 @@ In future diagrams, we'll probably represent it like this:
 #### Other components go here
 
 ## Testing
+
+### Possibly a description of how all the tests got integrated together
+
+Other things go here too
+
+We didn't calculate the results of our tests ourselves; instead, we checked the output from our implementation against Verilog's math (for example, `if (result !== a&b)` checks if the result of our AND matches `a&b`).
+
+### Addition and subtraction tests
+
+Some more text should go here eventually.
+
+Tables:
+
+Addition:
+
+| Case | A | B | Sum | Carryout | Overflow |
+|---|---|---|---|---|---|
+| ++00 | 00000000000000000111010100110000 | 00000000000000000111010100110000 | 00000000000000001110101001100000 | 0 | 0 |
+| +-00 | 00000000000000001110101001100000 | 11111111111111110001010110011011 | 11111111111111111111111111111011 | 0 | 0 |
+| +-10 | 01111111111111111111111111111111 | 10000000000000000000000000000001 | 00000000000000000000000000000000 | 1 | 0 |
+| -+00 | 11111111111111111110011000111000 | 00000000000000000001001110001000 | 11111111111111111111100111000000 | 0 | 0 |
+| -+10 | 11111111111111111111111111011100 | 01000000000000000000000000000000 | 00111111111111111111111111011100 | 1 | 0 |
+| --10 | 11111111111111111111110101110110 | 11111111111111111110110001110111 | 11111111111111111110100111101101 | 1 | 0 |
+| ++01 | 01111111111111111111111111111111 | 00000000000000000000000000000001 | 10000000000000000000000000000000 | 0 | 1 |
+| --11 | 10100110100101111101000100000000 | 10001000110010100110110000000000 | 00101111011000100011110100000000 | 1 | 1 |
+
+### XOR tests
+
+### Set less than tests
+
+For Set Less Than, there are two options for A and B, positive or negative, and the outcome can be true or false for the different combinations, so we have a test case for each combination. Additionally, there are the case where A=B (one for positive and one for negative). Finally, for the cases where the subtraction had an overflow, the SLT needs to return the opposite of the sign bit of the sum, so we have test cases where A was positive and B was negative and there was overflow, and A was negative and B was positive and there was overflow. These different cases capture all the possible behaviors. In the table they are expressed in decimal, but they are 32-bit binary inputs when given to the SLT module.
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| ++ | 2 | 4 | 1 | 1 |
+| ++ | 8 | 1 | 0 | 0 |
+| -- | -4 | -2 | 1 | 1|
+| -- | -1 | -5 | 0 | 0 |
+| +- | 2 | -5 | 0 | 0|
+| -+ | -4 | 100 | 1 | 1 |
+
+Same Number
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| ++ | 2 | 2 | 0 | 0 |
+| -- | -4 | -4 | 0 | 0 |
+
+Cases with Overflow
+
+| Case | A | B | Expected | Actual |
+|---|---|---|---|---|
+| +- | 2147483646 | -2 | 0 | 0 |
+| -+ | -2147483648 | 3 | 1 | 1 |
+
+#### Problems Detected by SLT Test Bench
+
+Originally, overflow test cases were missing and the SLT seemed to be working when it wasn't. Once we added the overflow test cases, we found that our original model of just taking the sign bit of the sum from subtracting A-B was incorrect. Our original overflow test cases were not actually going to produce overflows for the 32-bit version since we was originally using the overflow numbers for a 4-bit SLT or 4-bit adder subtracter. 
+
+### AND and NAND tests
+
+It was difficult to come up with test cases for the basic gates. For AND and NAND, we tested just two pairs of numbers, and used those pairs for both tests.
+
+| A | B | AND | NAND |
+|---|---|---|---|
+| 11111111111111111111111111111110 | 11000000110100011111111000001110 | 11000000110100011111111000001110 | 00111111001011100000000111110001 |
+| 00000101111101100101001111001000 | 00001110000000011010000000001110 | 00000100000000000000000000001000 | 11111011111111111111111111110111 |
+
+### OR and NOR tests
 
 ## Timing analysis
 

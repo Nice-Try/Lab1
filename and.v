@@ -1,6 +1,6 @@
 // Define gate delays
 `define NAND nand #20 // 2 inputs
-`define OR or #30 // 2 inputs, then 1 inverter
+`define XNOR xnor #30 // XOR/XNOR gates are weird so I'm just gonna call it 30...
 
 module full32BitAnd
 (
@@ -20,7 +20,7 @@ module full32BitAnd
       // NAND the inputs
       `NAND nandgate(_out, a[i], b[i]);
       // OR with andflag: if andflag, out will be NAND, otherwise out is AND
-      `OR orgate(out[i], _out, andflag);
+      `XNOR xnorgate(out[i], _out, andflag);
     end
   endgenerate
 
