@@ -47,7 +47,8 @@ module MUX
   );
   wire[31:0] ADD, SUB, XOR, SLT, AND, NAND, NOR, OR; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
-  wire andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7;
+  wire [7:0] firstand;
+  wire [3:0] firstor;
   wire [7:0] carryouts, overflowout;
 
   full32BitAdder adder (ADD, carryouts[0], overflowout[0], a, b, othercontrolsignal);
@@ -62,20 +63,71 @@ module MUX
   assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
 
-  /* this is not working yet
-    needs to mux the results of each thing to make
-    final result
+  not not1(nS0, S0);
+  not not2(nS1, S1);
+  not not3(nS2, S2);
+  genvar i;
+  generate
+    for(i=0; i<32; i=i+1)
+    begin:genblock
+      // mux the results
+      and andgate0(firstand[0], nS2, nS0, nS1, ADD[i]);
+      and andgate1(firstand[1], nS2, S0, nS1, SUB[i]);
+      and andgate2(firstand[2], nS2, nS0, S1, XOR[i]);
+      and andgate3(firstand[3], nS2, S0, S1, SLT[i]);
+      and andgate4(firstand[4], S2, nS0, nS1, AND[i]);
+      and andgate5(firstand[5], S2, S0, nS1, NAND[i]);
+      and andgate6(firstand[6], S2, nS0, S1, NOR[i]);
+      and andgate7(firstand[7], S2, S0, S1, OR[i]);
 
-    for(i=0; i<32; i=1+1) begin
-    not not1(nS0, S0);
-    not not2(nS1, S1);
-    not not3(nS2, S2);
-    and andgate0(andOut0, nS2, nS1, nS0);
-    and andgate1(andOut1, nS2, nS1, S0);
+      // or all of the results
+      or orgate(result[i], firstand[0], firstand[1], firstand[2], firstand[3], firstand[4], firstand[5], firstand[6], firstand[7]);
+      /*
+      // and the result bit with the muxindex[2]
+      and firstandgate0(firstand[0], nS2, ADD[i]);
+      and firstandgate1(firstand[1], nS2, SUB[i]);
+      and firstandgate2(firstand[2], nS2, XOR[i]);
+      and firstandgate3(firstand[3], nS2, SLT[i]);
+      and firstandgate4(firstand[4], S2, AND[i]);
+      and firstandgate5(firstand[5], S2, NAND[i]);
+      and firstandgate6(firstand[6], S2, NOR[i]);
+      and firstandgate7(firstand[7], S2, OR[i]);
 
-    //or orgate(result[i], andOut0, andOut1, andOut2, andOut3, andOut4, andOut5, andOut6, andOut7);
+      // and the other 2 mux inputs
+      and secondandgate0(secondand[0], nS0, nS1);
+      and secondandgate1(secondand[1], S0, nS1);
+      and secondandgate2(secondand[2], nS0, S1);
+      and secondandgate3(secondand[3], S0, S1);
+      and secondandgate4(secondand[4], nS0, nS1);
+      and secondandgate5(secondand[5], S0, nS1);
+      and secondandgate6(secondand[6], nS0, S1);
+      and secondandgate7(secondand[7], S0, S1);
+
+      // and the results from the other 2 and gates
+      and firstandgate0(thirdand[0], firstand[0], secondand[0]);
+      and firstandgate1(thirdand[1], firstand[1], secondand[1]);
+      and firstandgate2(thirdand[2], firstand[2], secondand[2]);
+      and firstandgate3(thirdand[3], firstand[3], secondand[3]);
+      and firstandgate4(thirdand[4], firstand[4], secondand[4]);
+      and firstandgate5(thirdand[5], firstand[5], secondand[5]);
+      and firstandgate6(thirdand[6], firstand[6], secondand[6]);
+      and firstandgate7(thirdand[7], firstand[7], secondand[7]);
+
+      // or together all the results
+      or firstorgate0(firstor[0], thirdand[0], thirdand[1]);
+      or firstorgate1(firstor[1], thirdand[2], thirdand[3]);
+      or firstorgate2(firstor[2], thirdand[4], thirdand[5]);
+      or firstorgate3(firstor[3], thirdand[6], thirdand[7]);
+
+      or secondorgate0(secondor[0], firstor[0], firstor[1]);
+      or secondorgate1(secondor[1], firstor[2], firstor[3]);
+
+      or thirdorgate(result[i], secondor[0], secondor[1]);
+      */        
+
     end
-    */
+  endgenerate
+    
 endmodule
 
 module ALU
