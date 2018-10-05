@@ -4,17 +4,17 @@
 `include "xor.v"
 `include "adder.v"
 
-`define ADD  3'd0
-`define SUB  3'd1
-`define XOR  3'd2
-`define SLT  3'd3
-`define AND  3'd4
-`define NAND 3'd5
-`define NOR  3'd6
-`define OR   3'd7
+`define ADDMODULE  3'd0
+`define SUBMODULE  3'd1
+`define XORMODULE  3'd2
+`define SLTMODULE  3'd3
+`define ANDMODULE  3'd4
+`define NANDMODULE 3'd5
+`define NORMODULE  3'd6
+`define ORMODULE   3'd7
 
-`define ANDGATE and #1000000 // 2 inputs
-`define ORGATE or #1000000 // 2 inputs
+`define ANDGATE and #10000000 // 2 inputs
+`define ORGATE or #10000000 // 2 inputs
 
 module ALUcontrolLUT
 (
@@ -25,14 +25,14 @@ input[2:0]	ALUcommand
 
   always @(ALUcommand) begin
     case (ALUcommand)
-      `ADD:  begin muxindex = 0; othercontrolsignal = 0; end
-      `SUB:  begin muxindex = 0; othercontrolsignal = 1; end
-      `XOR:  begin muxindex = 1; othercontrolsignal = 0; end
-      `SLT:  begin muxindex = 2; othercontrolsignal = 0; end
-      `AND:  begin muxindex = 3; othercontrolsignal = 0; end
-      `NAND: begin muxindex = 3; othercontrolsignal = 1; end
-      `NOR:  begin muxindex = 4; othercontrolsignal = 1; end
-      `OR:   begin muxindex = 4; othercontrolsignal = 0; end
+      `ADDMODULE:  begin muxindex = 0; othercontrolsignal = 0; end
+      `SUBMODULE:  begin muxindex = 0; othercontrolsignal = 1; end
+      `XORMODULE:  begin muxindex = 1; othercontrolsignal = 0; end
+      `SLTMODULE:  begin muxindex = 2; othercontrolsignal = 0; end
+      `ANDMODULE:  begin muxindex = 3; othercontrolsignal = 0; end
+      `NANDMODULE: begin muxindex = 3; othercontrolsignal = 1; end
+      `NORMODULE:  begin muxindex = 4; othercontrolsignal = 1; end
+      `ORMODULE:   begin muxindex = 4; othercontrolsignal = 0; end
     endcase
   end
 endmodule
@@ -48,19 +48,19 @@ module MUX
   input[31:0] a,
   input[31:0] b
   );
-  wire[31:0] ADD, SUB, XOR, SLT, AND, NAND, NOR, OR; //each operation output
+  wire[31:0] ADDMODULE, SUBMODULE, XORMODULE, SLTMODULE, ANDMODULE, NANDMODULE, NORMODULE, ORMODULE; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
   wire [7:0] resultand;
   wire [7:0] carryouts, overflowout;
 
-  full32BitAdder adder (ADD, carryouts[0], overflowout[0], a, b, othercontrolsignal);
-  full32BitAdder subber (SUB, carryouts[1], overflowout[1], a, b, othercontrolsignal);
-  full32BitXor xormod (XOR, carryouts[2], overflowout[2], a, b);
-  full32BitSLT slt (SLT, carryouts[3], overflowout[3], SUB, overflowout[0]);
-  full32BitAnd andmod (AND, carryouts[4], overflowout[4], a, b, othercontrolsignal);
-  full32BitAnd nandmod (NAND, carryouts[5], overflowout[5], a, b, othercontrolsignal);
-  full32BitOr normod (NOR, carryouts[6], overflowout[6], a, b, othercontrolsignal);
-  full32BitOr ormod (OR, carryouts[7], overflowout[7], a, b, othercontrolsignal);
+  full32BitAdder adder (ADDMODULE, carryouts[0], overflowout[0], a, b, othercontrolsignal);
+  full32BitAdder subber (SUBMODULE, carryouts[1], overflowout[1], a, b, othercontrolsignal);
+  full32BitXor xormod (XORMODULE, carryouts[2], overflowout[2], a, b);
+  full32BitSLT slt (SLTMODULE, carryouts[3], overflowout[3], SUBMODULE, overflowout[0]);
+  full32BitAnd andmod (ANDMODULE, carryouts[4], overflowout[4], a, b, othercontrolsignal);
+  full32BitAnd nandmod (NANDMODULE, carryouts[5], overflowout[5], a, b, othercontrolsignal);
+  full32BitOr normod (NORMODULE, carryouts[6], overflowout[6], a, b, othercontrolsignal);
+  full32BitOr ormod (ORMODULE, carryouts[7], overflowout[7], a, b, othercontrolsignal);
 
   assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
@@ -73,14 +73,14 @@ module MUX
     for(i=0; i<32; i=i+1)
     begin:genblock
       // mux the results
-      `ANDGATE(resultand[0], nS2, nS0, nS1, ADD[i]);
-      `ANDGATE(resultand[1], nS2, S0, nS1, SUB[i]);
-      `ANDGATE(resultand[2], nS2, nS0, S1, XOR[i]);
-      `ANDGATE(resultand[3], nS2, S0, S1, SLT[i]);
-      `ANDGATE(resultand[4], S2, nS0, nS1, AND[i]);
-      `ANDGATE(resultand[5], S2, S0, nS1, NAND[i]);
-      `ANDGATE(resultand[6], S2, nS0, S1, NOR[i]);
-      `ANDGATE(resultand[7], S2, S0, S1, OR[i]);
+      `ANDGATE(resultand[0], nS2, nS0, nS1, ADDMODULE[i]);
+      `ANDGATE(resultand[1], nS2, S0, nS1, SUBMODULE[i]);
+      `ANDGATE(resultand[2], nS2, nS0, S1, XORMODULE[i]);
+      `ANDGATE(resultand[3], nS2, S0, S1, SLTMODULE[i]);
+      `ANDGATE(resultand[4], S2, nS0, nS1, ANDMODULE[i]);
+      `ANDGATE(resultand[5], S2, S0, nS1, NANDMODULE[i]);
+      `ANDGATE(resultand[6], S2, nS0, S1, NORMODULE[i]);
+      `ANDGATE(resultand[7], S2, S0, S1, ORMODULE[i]);
 
       // or all of the results
       `ORGATE(result[i], resultand[0], resultand[1], resultand[2], resultand[3], resultand[4], resultand[5], resultand[6], resultand[7]);      

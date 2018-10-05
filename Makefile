@@ -4,8 +4,8 @@ ICARUS_OPTIONS := -Wall
 IVERILOG := iverilog $(ICARUS_OPTIONS)
 SIM := vvp
 
-CIRCUITS := or.v nor.v xor.v
-TEST := or nor xor
+CIRCUITS := alu.v
+TEST := alu
 
 
 # Pattern rule for compiling vvp (Icarus assembly) from a testbench
