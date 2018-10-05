@@ -6,6 +6,10 @@
 
 ### Individual modules
 
+#### Mux
+
+The ALU uses a mux to choose between the results of the other individual modules given the 3 bit mux input. It is actually comprised of 32 individual muxes, one for each of the result bits, and contains 8 and gates that take 4 inputs, the given bit from each of the 8 individual modules, and the 3 selection bits. Some of the selection bits are inverted so that the mux acts like a look-up table for the given individual module. The result from these and gates are then or'd together and output as the result.
+
 #### Add and subtract
 
 The adder was made bitslice, then as a full 32-bit adder. The bitslice adder is similar to our adder from [Lab 0](https://github.com/nielsenlouise/Lab0), except with an additional XOR gate to implement subtraction. Below is a diagram of the bitslice adder, which can be found in [adder.v](adder.v) as the `bitsliceAdder` module. Red labels correspond to wire names and blue labels correspond to gate names (as defined in the Verilog).
