@@ -19,7 +19,7 @@ module full32BitOr
     for (i=0; i<32; i=i+1)
     begin:genblock
       wire _out;
-      // NAND the inputs
+      // NOR the inputs
       `NOR(_out, a[i], b[i]);
       // XOR with andflag: if andflag, out will be AND, otherwise out is NAND
       `XOR(out[i], _out, orflag);

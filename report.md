@@ -1,4 +1,4 @@
-# Nice Try Lab 1
+# Nice Try Lab 1: ALU
 
 ## Implementation
 
@@ -24,26 +24,31 @@ In later diagrams, we will represent the full adder as a black box like this:
 
 <img src="images/full_adder_box.jpg" alt="Full adder black box" height="250"/>
 
+#### XOR
+
+Our XOR module is just 32 XOR gates next to each other. It looks like this:
+
+<img src="images/xor.jpg" alt="XOR diagram" height="250"/>
+
+#### Set Less Than
+
+The SLT takes its inputs from the outputs of the adder/subtractor. This works because the adder/subtractor module will be calculating subtraction because the `othercontrolsignal` will be 1 when the ALU command is for the SLT.
+
+Specfically, it looks at the sign bit `sum[31]` and the `overflow` outputs to determine if A < B. If there is no overflow, the LSB of the output `lessthan` will be the same as whatever the sign bit was. If there was overflow, the output should be the opposite of whatever the sign bit was, since with overflow the calculation result will actually have the wrong sign. To get this behavior, `sum[31]` and `overflow` are xor'd together. The rest of the output `lessthan` will be 0's regardless of the result.
+
+ <img src="images/slt.jpg" width="550px" alt="SLT Diagram"/>
+
 #### AND and NAND
 
-The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) takes three things as inputs: A and B, of course, and a flag for whether the desired operation is AND. The diagram is below:
+The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) takes three things as inputs: A and B, of course, and a flag for whether the desired operation is AND. This flag corresponds to the value of `command[0]`. The diagram is below:
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
-Additionally, we were unsure how best to approximate the timing of XNOR. We decided to make it cost 3 units of time - cheaper than implementing XNOR with other gates, but more expensive than just accounting for the two inputs.
+#### OR and NOR
 
-In future diagrams, we'll probably represent it like this:
+OR and NOR take in A, B, and orflag (which corresponds to `command[0]`). Using an XOR gate allows there to only be two two-input gates per bit for OR and NOR. A diagram is below.
 
-<img src="images/and_box.jpg" alt="32 bit and and nand black box" height="200"/>
-
-#### Set Less Than
-The SLT takes its inputs from the outputs of the adder/subtractor. This works because the adder/subtractor module will be calculating subtraction because the `othercontrolsignal` will be 1 when the ALU command is for the SLT. 
- 
-Specfically, it looks at the sign bit `sum[31]` and the `overflow` outputs to determine if A < B. If there is no overflow, the LSB of the output `lessthan` will be the same as whatever the sign bit was. If there was overflow, the output should be the opposite of whatever the sign bit was, since with overflow the calculation result will actually have the wrong sign. To get this behavior, `sum[31]` and `overflow` are xor'd together. The rest of the output `lessthan` will be 0's regardless of the result. 
- 
- <img src="images/slt.jpg" width="550px" alt="SLT Diagram"/>
- 
-#### Other components go here
+<img src="images/or.jpg" alt="OR diagram" height="250"/>
 
 ## Testing
 
@@ -150,7 +155,7 @@ We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn
 
 | Case | Cout | Over | A | B |
 |---|---|---|---|---|
-| ++ | 0 | 0 | 30000 | 30000 | 
+| ++ | 0 | 0 | 30000 | 30000 |
 | +- | 1 | 0 | 2147483647 | -2147483647 |
 | -- | 1 | 0 | -650 | -5001 |
 | -+ | 1 | 0 | -36 | 1073741824 |

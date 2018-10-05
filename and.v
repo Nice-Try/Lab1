@@ -1,6 +1,6 @@
 // Define gate delays
 `define NAND nand #20 // 2 inputs
-`define XNOR xnor #30 // XOR/XNOR gates are weird so I'm just gonna call it 30...
+`define XNOR xnor #20 // 2 inputs
 
 module full32BitAnd
 (
