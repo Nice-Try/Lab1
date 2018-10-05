@@ -156,6 +156,7 @@ We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn
 | 00000101111101100101001111001000 | 00001110000000011010000000001110 | 11110000000010000000110000110001 | 00001111111101111111001111001110 |
 
 ### ALU Tests
+We used some select test cases from our adder test cases since they would capture the special cases that adder has as well as the special cases for the SLT module. Our cases capture a few different combinations of positive and negative numbers, some with carryout some without, and a case with overflow. The second case in the table should also overflow for the SLT operation, testing that edge case. The other simple modules that are just gates don't really have edge cases that we needed to check. For each test case, the test bench ran the A and B inputs through all 8 operations and checked for the expected results. More in depth reasoning and explanations for the special cases can be found in the sections for the Adder/Subtracter module and the SLT module.  
 
 | Case | Cout | Over | A | B |
 |---|---|---|---|---|
