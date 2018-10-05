@@ -1,5 +1,9 @@
 # Nice Try Lab 1: ALU
 
+## Status
+
+We have either silly or deep, understanding-level Verilog errors in either (or both) of our [`alu.v`](alu.v) and [`alu.t.v`](alu.t.v) files. We did not have time to fully debug these, as detailed in our work plan reflection. Because we did not get working code, we did not complete (or begin) the timing analysis part of this lab and some other parts may seem incomplete. We will seek help in class. Thanks for listening!
+
 ## Implementation
 
 ### Overall architecture plan
