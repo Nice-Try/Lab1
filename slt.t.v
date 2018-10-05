@@ -1,8 +1,9 @@
 `include "slt.v"
+`include "adder.v"
 
 module testSLT();
   reg signed [31:0] a, b;
-  wire lessthan;
+  wire [31:0] lessthan;
   wire signed [31:0] sum;
   wire carryout, overflow, carryout1, overflow1;
   reg dutpassed;

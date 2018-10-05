@@ -12,7 +12,8 @@ module testALU();
 
   initial begin
   dutpassed =1;
-
+  $dumpfile("alu.vcd");
+  $dumpvars();
   $display("-----Count-----");
 
   // A+, B+, no carryout, no overflow

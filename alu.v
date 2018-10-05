@@ -50,7 +50,6 @@ module MUX
   );
   wire[31:0] ADDMODULE, SUBMODULE, XORMODULE, SLTMODULE, ANDMODULE, NANDMODULE, NORMODULE, ORMODULE; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
-  wire [7:0] resultand;
   wire [7:0] carryouts, overflowout;
 
   full32BitAdder adder (ADDMODULE, carryouts[0], overflowout[0], a, b, othercontrolsignal);
@@ -73,6 +72,7 @@ module MUX
     for(i=0; i<32; i=i+1)
     begin:genblock
       // mux the results
+      wire [7:0] resultand;
       `ANDGATE(resultand[0], nS2, nS0, nS1, ADDMODULE[i]);
       `ANDGATE(resultand[1], nS2, S0, nS1, SUBMODULE[i]);
       `ANDGATE(resultand[2], nS2, nS0, S1, XORMODULE[i]);
@@ -83,10 +83,10 @@ module MUX
       `ANDGATE(resultand[7], S2, S0, S1, ORMODULE[i]);
 
       // or all of the results
-      `ORGATE(result[i], resultand[0], resultand[1], resultand[2], resultand[3], resultand[4], resultand[5], resultand[6], resultand[7]);      
+      `ORGATE(result[i], resultand[0], resultand[1], resultand[2], resultand[3], resultand[4], resultand[5], resultand[6], resultand[7]);
     end
   endgenerate
-    
+
 endmodule
 
 module ALU
