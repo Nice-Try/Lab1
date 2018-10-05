@@ -29,16 +29,10 @@ module testFullAndNand();
     if ((a&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",(a&b));
     a=100029384;b=234987534; #1000
     if ((a&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",(a&b));
 
     andflag=1;
     /******************
@@ -49,16 +43,10 @@ module testFullAndNand();
     if ((a~&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",(a~&b));
     a=100029384;b=234987534; #1000
     if ((a~&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",(a~&b));
 
 
 
