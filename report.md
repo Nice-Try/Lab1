@@ -1,4 +1,4 @@
-# Nice Try Lab 1
+# Nice Try Lab 1: ALU
 
 ## Implementation
 
@@ -24,19 +24,25 @@ In later diagrams, we will represent the full adder as a black box like this:
 
 <img src="images/full_adder_box.jpg" alt="Full adder black box" height="250"/>
 
+#### XOR
+
+Our XOR module is just 32 XOR gates next to each other. It looks like this:
+
+<img src="images/xor.jpg" alt="XOR diagram" height="250"/>
+
+#### Set less than (SLT)
+
 #### AND and NAND
 
-The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) takes three things as inputs: A and B, of course, and a flag for whether the desired operation is AND. The diagram is below:
+The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) takes three things as inputs: A and B, of course, and a flag for whether the desired operation is AND. This flag corresponds to the value of `command[0]`. The diagram is below:
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
-Additionally, we were unsure how best to approximate the timing of XNOR. We decided to make it cost 3 units of time - cheaper than implementing XNOR with other gates, but more expensive than just accounting for the two inputs.
+#### OR and NOR
 
-In future diagrams, we'll probably represent it like this:
+OR and NOR take in A, B, and orflag (which corresponds to `command[0]`). Using an XOR gate allows there to only be two two-input gates per bit for OR and NOR. A diagram is below.
 
-<img src="images/and_box.jpg" alt="32 bit and and nand black box" height="200"/>
-
-#### Other components go here
+<img src="images/or.jpg" alt="OR diagram" height="250"/>
 
 ## Testing
 
