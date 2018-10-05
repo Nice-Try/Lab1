@@ -30,7 +30,9 @@ The AND and NAND full 32 bit module (found [here](and.v) as `full32BitAnd`) take
 
 <img src="images/and.jpg" alt="32 bit and and nand diagram" height="400"/>
 
-In our first iteration of the AND/NAND module, we used an XOR gate instead of an OR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you OR the output of NANDing the inputs with `command[0]`.
+In our first iteration of the AND/NAND module, we used an XOR gate instead of an XNOR gate, which assumes that `andflag` will be true when AND is the desired operation. When we started working on integrating our modules into an ALU, we realized that, for all of the two-operation modules, `command[0]` could work as a flag, and that we should produce AND when `command[0]` is false, and NAND when it is true. This happens when you XNOR the output of NANDing the inputs with `command[0]`.
+
+Additionally, we were unsure how best to approximate the timing of XNOR. We decided to make it cost 3 units of time - cheaper than implementing XNOR with other gates, but more expensive than just accounting for the two inputs.
 
 In future diagrams, we'll probably represent it like this:
 
@@ -39,6 +41,29 @@ In future diagrams, we'll probably represent it like this:
 #### Other components go here
 
 ## Testing
+
+### Possibly a description of how all the tests got integrated together
+
+Other things go here too
+
+We didn't calculate the results of our tests ourselves; instead, we checked the output from our implementation against Verilog's math (for example, `if (result !== a&b)` checks if the result of our AND matches `a&b`).
+
+### Addition and subtraction tests
+
+### XOR tests
+
+### Set less than tests
+
+### AND and NAND tests
+
+It was difficult to come up with test cases for the basic gates. For AND and NAND, we tested just two pairs of numbers, and used those pairs for both tests.
+
+| A | B | AND | NAND |
+|---|---|---|---|
+| 11111111111111111111111111111110 | 11000000110100011111111000001110 | 11000000110100011111111000001110 | 00111111001011100000000111110001 |
+| 00000101111101100101001111001000 | 00001110000000011010000000001110 | 00000100000000000000000000001000 | 11111011111111111111111111110111 |
+
+### OR and NOR tests
 
 ## Timing analysis
 

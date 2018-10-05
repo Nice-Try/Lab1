@@ -18,27 +18,48 @@ module testFullAndNand();
     $dumpvars();
 
     $display("Beginning tests");
-    $display("Running NAND tests");
-    andflag=0;
-    a=4294967294;b=3234987534; #90
-    if ((a~&b) !== out) begin
-      $display("Test failed with a %b, b %b", a, b);
-    end
-    a=100029384;b=234987534; #90
-    if ((a~&b) !== out) begin
-      $display("Test failed with a %b, b %b", a, b);
-    end
 
+
+    andflag=0;
+    /******************
+     **   AND TESTS  **
+     ******************/
     $display("Running AND tests");
+    a=4294967294;b=3234987534; #1000
+    if ((a&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b",a);
+    $display("%b",b);
+    $display("%b",(a&b));
+    a=100029384;b=234987534; #1000
+    if ((a&b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b",a);
+    $display("%b",b);
+    $display("%b",(a&b));
+
     andflag=1;
-    a=4294967294;b=3234987534; #90
-    if ((a&b) !== out) begin
+    /******************
+     **  NAND TESTS  **
+     ******************/
+    $display("Running NAND tests");
+    a=4294967294;b=3234987534; #1000
+    if ((a~&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
-    a=100029384;b=234987534; #90
-    if ((a&b) !== out) begin
+    $display("%b",a);
+    $display("%b",b);
+    $display("%b",(a~&b));
+    a=100029384;b=234987534; #1000
+    if ((a~&b) !== out) begin
       $display("Test failed with a %b, b %b", a, b);
     end
+    $display("%b",a);
+    $display("%b",b);
+    $display("%b",(a~&b));
+
 
 
     $display("Tests completed");
