@@ -182,12 +182,6 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
-    $display("%b",a);
-    $display("%b",b);
-    $display("%b",sum);
-    $display("%b",a-b);
-    $display("%b",carryout);
-    $display("%b",overflow);
 
   end
 endmodule
