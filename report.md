@@ -36,14 +36,6 @@ In future diagrams, we'll probably represent it like this:
 
 <img src="images/and_box.jpg" alt="32 bit and and nand black box" height="200"/>
 
-#### Set Less Than
-
-The SLT takes its inputs from the outputs of the adder/subtractor. This works because the adder/subtractor module will be calculating subtraction because the `othercontrolsignal` will be 1 when the ALU command is for the SLT. 
-
-Specfically, it looks at the sign bit `sum[31]` and the `overflow` outputs to determine if A < B. If there is no overflow, the LSB of the output `lessthan` will be the same as whatever the sign bit was. If there was overflow, the output should be the opposite of whatever the sign bit was, since with overflow the calculation result will actually have the wrong sign. To get this behavior, `sum[31]` and `overflow` are xor'd together. The rest of the output `lessthan` will be 0's regardless of the result. 
-
-<img src="images/slt.jpg" width="550px" alt="SLT Diagram"/>
-
 #### Other components go here
 
 ## Testing
@@ -56,9 +48,9 @@ We didn't calculate the results of our tests ourselves; instead, we checked the 
 
 ### Addition and subtraction tests
 
-Some more text should go here eventually.
+For addition and subtraction with the adder, we tested every possible combination of signs of input, and carryout and overflow values. These test benches did not result in any changes in our implementation.
 
-Tables:
+Below are tables containing the tests for addition and subtraction. The "Case" column is sign of input a, sign of input b, value of carryout, and value of overflow (for example, +-01 means a is positive, b is negative, carryout is 0, and overflow is 1).
 
 Addition:
 
