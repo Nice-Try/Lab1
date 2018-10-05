@@ -124,6 +124,13 @@ In our first iteration of the AND/NAND module, we used an XOR gate instead of an
 
 ### OR and NOR tests
 
+We tested OR/NOR on the same values we tested AND/NAND. Using our testbench didn't discover any problems in our OR/NOR implementation. Here's a table of the same test cases as above, with the NOR and OR values.
+
+| A | B | NOR | OR |
+|---|---|---|---|
+| 11111111111111111111111111111110 | 11000000110100011111111000001110 | 00000000000000000000000000000001 | 11111111111111111111111111111110 |
+| 00000101111101100101001111001000 | 00001110000000011010000000001110 | 11110000000010000000110000110001 | 00001111111101111111001111001110 |
+
 ## Timing analysis
 
 ## Work plan reflection

@@ -3,21 +3,61 @@
 `include "or.v"
 
 module testOr ();
-    reg [31:0] inA;
-    reg [31:0] inB;
+    reg [31:0] a;
+    reg [31:0] b;
     wire [31:0] out;
     reg orflag;
 
     wire carryout, overflow;
-    full32BitOr ormod (out, carryout, overflow, inA, inB, orflag); // Swap after testing
+    full32BitOr ormod (out, carryout, overflow, a, b, orflag); // Swap after testing
 
     initial begin
-    $display("A B | Output");
-    inA=0;inB=0;orflag=0; #1000
-    $display("%b %b |  %b | All false", inA, inB, out, );
-    inA=1;inB=1;orflag=1; #1000
-    $display("%b %b |  %b | All false", inA, inB, out);
-    $finish();
+    $display("Beginning tests");
+
+
+    orflag=0;
+    /******************
+     **   NOR TESTS  **
+     ******************/
+    $display("Running NOR tests");
+    a=4294967294;b=3234987534; #10000
+    if ((a~|b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b", a);
+    $display("%b", b);
+    $display("%b", a~|b);
+    a=100029384;b=234987534; #10000
+    if ((a~|b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b", a);
+    $display("%b", b);
+    $display("%b", a~|b);
+
+    orflag=1;
+    /******************
+     **    OR TESTS  **
+     ******************/
+    $display("Running OR tests");
+    a=4294967294;b=3234987534; #1000
+    if ((a|b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b", a);
+    $display("%b", b);
+    $display("%b", a|b);
+    a=100029384;b=234987534; #1000
+    if ((a|b) !== out) begin
+      $display("Test failed with a %b, b %b", a, b);
+    end
+    $display("%b", a);
+    $display("%b", b);
+    $display("%b", a|b);
+
+
+
+    $display("Tests completed");
     end
 
 endmodule
