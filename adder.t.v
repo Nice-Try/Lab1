@@ -118,6 +118,12 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
+    if(carryout !==  0 || overflow !== 0) begin
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
+    end
     // A+, B+, carryout, no overflow
     a=2147483647;b=60; #10000
     if ((a-b) !== sum) begin
@@ -126,6 +132,12 @@ module testFullAdder();
       $display("- b:        %b", b);
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
+    end
+    if(carryout !==  1 || overflow !== 0) begin
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
     end
     // A+, B-, no carryout, no overflow
     a=6000000;b=-3500; #10000
@@ -136,6 +148,12 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
+    if(carryout !==  0 || overflow !== 0) begin
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
+    end
     // A-, B+, no carryout, no overflow
     a=-26000;b=450612; #10000
     if ((a-b) !== sum) begin
@@ -144,6 +162,14 @@ module testFullAdder();
       $display("- b:        %b", b);
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
+    end
+    if(carryout !==  1 || overflow !== 0) begin
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("- expected: %b", a-b);
+      $display("- actual:   %b", sum);
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 1 Overflow = %b  expected 0", carryout, overflow);
     end
     // A-, B-, no carryout, no overflow
     a=-2147483647;b=-26; #10000
@@ -154,6 +180,12 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
+    if(carryout !==  0 || overflow !== 0) begin
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
+    end
     // A-, B-, carryout, no overflow
     a=-36;b=-36; #10000
     if ((a-b) !== sum) begin
@@ -162,6 +194,12 @@ module testFullAdder();
       $display("- b:        %b", b);
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
+    end
+    if(carryout !==  1 || overflow !== 0) begin
+      $display("Failed subtracting:");
+      $display("- a:        %b", a);
+      $display("- b:        %b", b);
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
     end
 
     // A+, B-, no carryout, overflow
@@ -173,6 +211,10 @@ module testFullAdder();
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
     end
+    if(carryout !==  0 || overflow !== 1) begin
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
+    end
     // A-, B+, carryout, overflow
     a=-2100000000;b=1073741824; #10000
     if ((a-b) !== sum) begin
@@ -181,6 +223,10 @@ module testFullAdder();
       $display("- b:        %b", b);
       $display("- expected: %b", a-b);
       $display("- actual:   %b", sum);
+    end
+    if(carryout !==  1 || overflow !== 1) begin
+      $display("Failed subtracting:");
+      $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
     end
 
   end

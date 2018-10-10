@@ -36,7 +36,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -135,7 +135,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !== 0 || overflow !== 0) begin
+    if(carryout !== 0 || overflow !== 1) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -234,7 +234,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -333,7 +333,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -432,7 +432,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -531,7 +531,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
