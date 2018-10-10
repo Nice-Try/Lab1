@@ -30,7 +30,7 @@ module testALU();
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
     end
 
-  control=3'b001; #2000//SUB
+  control=3'b001; #20000//SUB
     if(result !== a-b) begin
       dutpassed = 0;
       $display("Failed Subtracting:");
