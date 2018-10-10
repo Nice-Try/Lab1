@@ -17,7 +17,7 @@ module testALU();
 
   // A+, B+, no carryout, no overflow
   a=30000;b=30000; #10000
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
@@ -116,7 +116,7 @@ module testALU();
 
   // A+, B-, carryout, no overflow
   a=2147483647;b=-2147483647; #10000
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
@@ -215,7 +215,7 @@ module testALU();
 
   // A-, B-, carryout, no overflow
   a=-650;b=-5001; #10000
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
@@ -314,7 +314,7 @@ module testALU();
 
   // A-, B-, carryout, overflow
   a=-1500000000;b=-2000000000;
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
@@ -413,7 +413,7 @@ module testALU();
 
   // A-, B+, carryout, no overflow
   a=-36;b=1073741824; #10000
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
@@ -512,7 +512,7 @@ module testALU();
 
   // A+, B+, no carryout, overflow
   a=2147483647;b=1; #10000
-  $display("a = %b  b = %b",a,b);
+  $display("Testing a = %b  b = %b",a,b);
   control=3'b000; #2000 //ADD
     if(result !== a+b) begin
       dutpassed = 0;
