@@ -11,6 +11,8 @@ module full32BitAnd
   input[31:0] b,
   input andflag
 );
+  reg carryout = 0;
+  reg overflow = 0;
   // Generate all the gates
   genvar i;
   generate
