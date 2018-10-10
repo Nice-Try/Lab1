@@ -14,7 +14,6 @@ module testALU();
   dutpassed =1;
   $dumpfile("alu.vcd");
   $dumpvars();
-  $display("-----Count-----");
 
   // A+, B+, no carryout, no overflow
   a=30000;b=30000; #10000
@@ -44,7 +43,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -68,7 +67,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -80,10 +79,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -92,10 +91,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !== 0 || overflow !== 0) begin
       dutpassed = 0;
@@ -104,7 +103,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
@@ -143,7 +142,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -167,7 +166,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -179,10 +178,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -191,10 +190,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -203,7 +202,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
@@ -242,7 +241,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -266,7 +265,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -278,10 +277,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -290,10 +289,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -302,7 +301,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
@@ -341,7 +340,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -365,7 +364,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -377,10 +376,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -389,10 +388,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -401,7 +400,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
@@ -440,7 +439,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -464,7 +463,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -476,10 +475,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -488,10 +487,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -500,7 +499,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
@@ -539,7 +538,7 @@ module testALU();
     end
 
   control=3'b010; #2000//XOR
-    if(result !== a^b) begin
+    if(result !== (a^b)) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
@@ -563,7 +562,7 @@ module testALU();
     end
 
   control=3'b100; #2000//AND
-    if(result !== a&b) begin
+    if(result !== (a&b)) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
@@ -575,10 +574,10 @@ module testALU();
     end
 
   control=3'b101; #2000//NAND
-    if(result !== a&b) begin //need to make NAND
+    if(result !== (a~&b)) begin //need to make NAND
       dutpassed = 0;
       $display("Failed NAND:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -587,10 +586,10 @@ module testALU();
     end
 
   control=3'b110; #2000//NOR
-    if(result !== ~a|b) begin
+    if(result !== (a~|b)) begin
       dutpassed = 0;
       $display("Failed NOR:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,~a|b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -599,7 +598,7 @@ module testALU();
     end
 
   control=3'b111; #2000//OR
-    if(result !== a|b) begin
+    if(result !== (a|b)) begin
       dutpassed = 0;
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
