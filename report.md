@@ -4,6 +4,8 @@
 
 We have either silly or deep, understanding-level Verilog errors in either (or both) of our [`alu.v`](alu.v) and [`alu.t.v`](alu.t.v) files. We did not have time to fully debug these, as detailed in our work plan reflection. Because we did not get working code, we did not complete (or begin) the timing analysis part of this lab and some other parts may seem incomplete. We will seek help in class. Thanks for listening!
 
+Update: Tuesday Oct 9: We fixed most of our failing test cases! Most of them were due to the following errors: disconnected carryout and overflow wires, not enough parentheses, or testing subtraction overflow and carryout against what addition overflow and carryout should have been. SLT is still failing for unexamined reasons. 
+
 ## Implementation
 
 ### Overall architecture plan
