@@ -26,13 +26,13 @@ input[2:0]	ALUcommand
   always @(ALUcommand) begin
     case (ALUcommand)
       `ADDMODULE:  begin muxindex = 0; othercontrolsignal = 0; end
-      `SUBMODULE:  begin muxindex = 0; othercontrolsignal = 1; end
-      `XORMODULE:  begin muxindex = 1; othercontrolsignal = 0; end
-      `SLTMODULE:  begin muxindex = 2; othercontrolsignal = 0; end
-      `ANDMODULE:  begin muxindex = 3; othercontrolsignal = 0; end
-      `NANDMODULE: begin muxindex = 3; othercontrolsignal = 1; end
-      `NORMODULE:  begin muxindex = 4; othercontrolsignal = 1; end
-      `ORMODULE:   begin muxindex = 4; othercontrolsignal = 0; end
+      `SUBMODULE:  begin muxindex = 1; othercontrolsignal = 1; end
+      `XORMODULE:  begin muxindex = 2; othercontrolsignal = 0; end
+      `SLTMODULE:  begin muxindex = 3; othercontrolsignal = 0; end
+      `ANDMODULE:  begin muxindex = 4; othercontrolsignal = 0; end
+      `NANDMODULE: begin muxindex = 5; othercontrolsignal = 1; end
+      `NORMODULE:  begin muxindex = 6; othercontrolsignal = 0; end
+      `ORMODULE:   begin muxindex = 7; othercontrolsignal = 1; end
     endcase
   end
 endmodule
@@ -62,6 +62,7 @@ module MUX
   full32BitOr ormod (ORMODULE, carryouts[7], overflowout[7], a, b, othercontrolsignal);
 
   assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
+  assign carryout = carryouts[muxindex];
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
 
   not not1(nS0, S0);
