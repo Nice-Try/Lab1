@@ -24,7 +24,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -36,7 +36,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0|| zero != 1) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -48,7 +48,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0|| zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -60,7 +60,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0|| zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -72,7 +72,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0|| zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -84,7 +84,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0|| zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -96,7 +96,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !== 0 || overflow !== 0) begin
+    if(carryout !== 0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -108,7 +108,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -123,7 +123,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !== 1 || overflow !== 0) begin
+    if(carryout !== 1 || overflow !== 0 || zero != 1) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 1 Overflow = %b  expected 0", carryout, overflow);
@@ -135,7 +135,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !== 0 || overflow !== 1) begin
+    if(carryout !== 0 || overflow !== 1 || zero != 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -147,7 +147,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !== 0 || overflow !== 0) begin
+    if(carryout !== 0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -159,7 +159,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -171,7 +171,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -183,7 +183,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -195,7 +195,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -207,7 +207,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -222,7 +222,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 1 Overflow = %b  expected 0", carryout, overflow);
@@ -234,7 +234,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -246,7 +246,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -258,7 +258,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -270,7 +270,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -282,7 +282,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -294,7 +294,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -306,7 +306,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -321,7 +321,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !==  1 || overflow !== 1) begin
+    if(carryout !==  1 || overflow !== 1 || zero != 0) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 1 Overflow = %b  expected 1", carryout, overflow);
@@ -333,7 +333,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -345,7 +345,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -357,7 +357,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -369,7 +369,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -381,7 +381,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -393,7 +393,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -405,7 +405,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -420,7 +420,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 1 Overflow = %b  expected 0", carryout, overflow);
@@ -432,7 +432,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -444,7 +444,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -456,7 +456,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result[31],a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -468,7 +468,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -480,7 +480,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -492,7 +492,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -504,7 +504,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -519,7 +519,7 @@ module testALU();
       $display("Failed adding:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a+b);
     end
-    if(carryout !==  0 || overflow !== 1) begin
+    if(carryout !==  0 || overflow !== 1 || zero != 0) begin
       dutpassed = 0;
       $display("Failed adding:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 1", carryout, overflow);
@@ -531,7 +531,7 @@ module testALU();
       $display("Failed Subtracting:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a-b);
     end
-    if(carryout !==  1 || overflow !== 0) begin
+    if(carryout !==  1 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed subtracting:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -543,7 +543,7 @@ module testALU();
       $display("Failed XOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a^b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -555,7 +555,7 @@ module testALU();
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -567,7 +567,7 @@ module testALU();
       $display("Failed AND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed AND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -579,7 +579,7 @@ module testALU();
       $display("Failed NAND:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~&b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NAND:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -591,7 +591,7 @@ module testALU();
       $display("Failed NOR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a~|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0 || zero != 0) begin
       dutpassed = 0;
       $display("Failed NOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
@@ -603,7 +603,7 @@ module testALU();
       $display("Failed OR:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a|b);
     end
-    if(carryout !==  0 || overflow !== 0) begin
+    if(carryout !==  0 || overflow !== 0|| zero != 0) begin
       dutpassed = 0;
       $display("Failed XOR:");
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);

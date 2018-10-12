@@ -5,12 +5,14 @@
 module full32BitOr
 (
   output[31:0] out,
+  output zero,
   output carryout,
   output overflow,
   input[31:0] a,
   input[31:0] b,
   input orflag
 );
+  assign zero = 0;
   assign carryout = 0;
   assign overflow = 0;
   // Generate all the gates

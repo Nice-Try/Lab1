@@ -2,6 +2,7 @@
 `define AND and #30 // 2 inputs, then 1 inverter
 `define OR or #30 // 2 inputs, then 1 inverter
 `define XOR xor #20 // 2 inputs
+`define NOR nor #320 // 32 inputs
 
 module bitsliceAdder
 /*
@@ -75,6 +76,7 @@ module full32BitAdder
 */
 (
   output[31:0] sum,
+  output zero,
   output carryout,
   output overflow,
   input[31:0] a,
@@ -97,6 +99,9 @@ module full32BitAdder
 
   // Generate the last (31st) adder for the right variable name on carryout
   bitsliceAdder adder31(sum[31], carryout, a[31], b[31], carryouts[30], subtract);
+
+  // Generate zero output
+  `NOR norgate(zero, sum[0], sum[1], sum[2], sum[3], sum[4], sum[5], sum[6], sum[7], sum[8], sum[9], sum[10], sum[11], sum[12], sum[13], sum[14], sum[15], sum[16], sum[17], sum[18], sum[19], sum[20], sum[21], sum[22], sum[23], sum[24], sum[25], sum[26], sum[27], sum[28], sum[29], sum[30], sum[31]); // 32 inputs
 
   // Calculate overflow
   `XOR xorgate(overflow, carryout, carryouts[30]);

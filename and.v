@@ -5,12 +5,14 @@
 module full32BitAnd
 (
   output[31:0] out,
+  output zero,
   output carryout,
   output overflow,
   input[31:0] a,
   input[31:0] b,
   input andflag
 );
+  reg zero = 0;
   reg carryout = 0;
   reg overflow = 0;
   // Generate all the gates

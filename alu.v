@@ -51,19 +51,20 @@ module MUX
   );
   wire[31:0] ADDMODULE, SUBMODULE, XORMODULE, SLTMODULE, ANDMODULE, NANDMODULE, NORMODULE, ORMODULE; //each operation output
   wire S0,S1,S2, nS0, nS1, nS2; //select bits
-  wire [7:0] carryouts, overflowout;
+  wire [7:0] carryouts, overflowout, zeros;
 
-  full32BitAdder adder (ADDMODULE, carryouts[0], overflowout[0], a, b, othercontrolsignal);
-  full32BitAdder subber (SUBMODULE, carryouts[1], overflowout[1], a, b, othercontrolsignal);
-  full32BitXor xormod (XORMODULE, carryouts[2], overflowout[2], a, b);
-  full32BitSLT slt (SLTMODULE, carryouts[3], overflowout[3], SUBMODULE, overflowout[1]);
-  full32BitAnd andmod (ANDMODULE, carryouts[4], overflowout[4], a, b, othercontrolsignal);
-  full32BitAnd nandmod (NANDMODULE, carryouts[5], overflowout[5], a, b, othercontrolsignal);
-  full32BitOr normod (NORMODULE, carryouts[6], overflowout[6], a, b, othercontrolsignal);
-  full32BitOr ormod (ORMODULE, carryouts[7], overflowout[7], a, b, othercontrolsignal);
+  full32BitAdder adder (ADDMODULE, zeros[0], carryouts[0], overflowout[0], a, b, othercontrolsignal);
+  full32BitAdder subber (SUBMODULE, zeros[1], carryouts[1], overflowout[1], a, b, othercontrolsignal);
+  full32BitXor xormod (XORMODULE, zeros[2], carryouts[2], overflowout[2], a, b);
+  full32BitSLT slt (SLTMODULE, zeros[3], carryouts[3], overflowout[3], SUBMODULE, overflowout[1]);
+  full32BitAnd andmod (ANDMODULE, zeros[4], carryouts[4], overflowout[4], a, b, othercontrolsignal);
+  full32BitAnd nandmod (NANDMODULE, zeros[5], carryouts[5], overflowout[5], a, b, othercontrolsignal);
+  full32BitOr normod (NORMODULE, zeros[6], carryouts[6], overflowout[6], a, b, othercontrolsignal);
+  full32BitOr ormod (ORMODULE, zeros[7], carryouts[7], overflowout[7], a, b, othercontrolsignal);
 
   assign overflow = overflowout[muxindex];
   assign carryout = carryouts[muxindex];
+  assign zero = zeros[muxindex];
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
 
   `NOT not1(nS0, S0);
