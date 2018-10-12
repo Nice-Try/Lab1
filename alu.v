@@ -15,6 +15,7 @@
 
 `define ANDGATE and #50 // 4 inputs, 1 inverter
 `define ORGATE or #90 // 8 inputs, 1 inverter
+`define NOT not #10 // 1 inverter
 
 module ALUcontrolLUT
 (
@@ -61,13 +62,13 @@ module MUX
   full32BitOr normod (NORMODULE, carryouts[6], overflowout[6], a, b, othercontrolsignal);
   full32BitOr ormod (ORMODULE, carryouts[7], overflowout[7], a, b, othercontrolsignal);
 
-  assign overflow = overflowout[muxindex]; //does this not count as structural? might need to change
+  assign overflow = overflowout[muxindex];
   assign carryout = carryouts[muxindex];
   assign S0=muxindex[0]; assign S1=muxindex[1];assign S2=muxindex[2];
 
-  not not1(nS0, S0);
-  not not2(nS1, S1);
-  not not3(nS2, S2);
+  `NOT not1(nS0, S0);
+  `NOT not2(nS1, S1);
+  `NOT not3(nS2, S2);
   genvar i;
   generate
     for(i=0; i<32; i=i+1)
