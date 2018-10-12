@@ -54,8 +54,8 @@ module testALU();
       $display("Cout = %b  expected 0 Overflow = %b  expected 0", carryout, overflow);
     end
 
-  control=3'b011; #2000//SLT
-    if(result[31] !== (a<b)) begin
+  control=3'b011; #5000//SLT
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
@@ -154,7 +154,7 @@ module testALU();
     end
 
   control=3'b011; #2000//SLT
-    if(result[31] !== (a<b)) begin
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
@@ -253,7 +253,7 @@ module testALU();
     end
 
   control=3'b011; #2000//SLT
-    if(result[31] !== (a<b)) begin
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
@@ -352,7 +352,7 @@ module testALU();
     end
 
   control=3'b011; #2000//SLT
-    if(result[31] !== (a<b)) begin
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
@@ -451,10 +451,10 @@ module testALU();
     end
 
   control=3'b011; #5000//SLT
-    if(result[31] !== (a<b)) begin
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
-      $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);
+      $display("a = %b  b = %b   result = %b  expected %b", a,b,result[31],a<b);
     end
     if(carryout !==  0 || overflow !== 0) begin
       dutpassed = 0;
@@ -550,7 +550,7 @@ module testALU();
     end
 
   control=3'b011; #2000//SLT
-    if(result[31] !== (a<b)) begin
+    if(result[0] !== (a<b)) begin
       dutpassed = 0;
       $display("Failed SLT:");
       $display("a = %b  b = %b   result = %b  expected %b", a,b,result,a<b);

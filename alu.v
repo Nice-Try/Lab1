@@ -28,7 +28,7 @@ input[2:0]	ALUcommand
       `ADDMODULE:  begin muxindex = 0; othercontrolsignal = 0; end
       `SUBMODULE:  begin muxindex = 1; othercontrolsignal = 1; end
       `XORMODULE:  begin muxindex = 2; othercontrolsignal = 0; end
-      `SLTMODULE:  begin muxindex = 3; othercontrolsignal = 0; end
+      `SLTMODULE:  begin muxindex = 3; othercontrolsignal = 1; end
       `ANDMODULE:  begin muxindex = 4; othercontrolsignal = 0; end
       `NANDMODULE: begin muxindex = 5; othercontrolsignal = 1; end
       `NORMODULE:  begin muxindex = 6; othercontrolsignal = 0; end
@@ -55,7 +55,7 @@ module MUX
   full32BitAdder adder (ADDMODULE, carryouts[0], overflowout[0], a, b, othercontrolsignal);
   full32BitAdder subber (SUBMODULE, carryouts[1], overflowout[1], a, b, othercontrolsignal);
   full32BitXor xormod (XORMODULE, carryouts[2], overflowout[2], a, b);
-  full32BitSLT slt (SLTMODULE, carryouts[3], overflowout[3], SUBMODULE, overflowout[0]);
+  full32BitSLT slt (SLTMODULE, carryouts[3], overflowout[3], SUBMODULE, overflowout[1]);
   full32BitAnd andmod (ANDMODULE, carryouts[4], overflowout[4], a, b, othercontrolsignal);
   full32BitAnd nandmod (NANDMODULE, carryouts[5], overflowout[5], a, b, othercontrolsignal);
   full32BitOr normod (NORMODULE, carryouts[6], overflowout[6], a, b, othercontrolsignal);
